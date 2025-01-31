@@ -1,6 +1,10 @@
 # frozen_string_literal: true
 
 RSpec.describe DegicaDatadog::Config do
+  before(:example) do
+    described_class.init
+  end
+
   describe ".init" do
     context "full initialisation" do
       let(:service_name) { "degica" }
@@ -42,10 +46,10 @@ RSpec.describe DegicaDatadog::Config do
       before do
         described_class.init
 
-        allow(ENV).to receive(:fetch).with("SERVICE_NAME", "unknown").and_return(service_name)
+        allow(ENV).to receive(:fetch).with("SERVICE_NAME", nil).and_return(service_name)
         allow(ENV).to receive(:fetch).with("PLATFORM", "").and_return("")
         allow(ENV).to receive(:fetch).with("_GIT_REVISION", "unknown").and_return(version)
-        allow(ENV).to receive(:fetch).with("RAILS_ENV", "unknown").and_return(environment)
+        allow(ENV).to receive(:fetch).with("RAILS_ENV", nil).and_return(environment)
       end
 
       it "sets service_name correctly" do

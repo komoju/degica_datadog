@@ -26,7 +26,7 @@ module DegicaDatadog
       end
 
       def service
-        @service || ENV.fetch("SERVICE_NAME", "unknown")
+        @service ||= ENV.fetch("SERVICE_NAME", nil) || "unknown"
       end
 
       def version
@@ -34,15 +34,15 @@ module DegicaDatadog
 
         platform = ENV.fetch("PLATFORM", "")
         git_revision = ENV.fetch("_GIT_REVISION", "unknown")
-        platform.empty? ? git_revision : "#{git_revision}-#{platform}"
+        @version = platform.empty? ? git_revision : "#{git_revision}-#{platform}"
       end
 
       def environment
-        @environment || ENV.fetch("RAILS_ENV", "unknown")
+        @environment ||= ENV.fetch("RAILS_ENV", nil) || "unknown"
       end
 
       def repository_url
-        @repository_url || "github.com/degica/#{service}"
+        @repository_url ||= "github.com/degica/#{service}"
       end
 
       # URI including http:// prefix & port for the tracing endpoint, or nil.
