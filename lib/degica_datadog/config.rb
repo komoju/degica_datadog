@@ -78,7 +78,7 @@ module DegicaDatadog
       private
 
       def disable_env_var_flag
-        ENV["DISABLE_DEGICA_DATADOG"] == "true" || ENV["DISABLE_DEGICA_DATADOG"] == "1"
+        %w[true 1].include?(ENV["DISABLE_DEGICA_DATADOG"])
       end
     end
   end
