@@ -38,7 +38,7 @@ module DegicaDatadog
       end
 
       def environment
-        @environment ||= ENV.fetch("RAILS_ENV", nil) || "unknown"
+        @environment ||= ENV.fetch("O11Y_ENV", nil) || ENV.fetch("RAILS_ENV", nil) || "unknown"
       end
 
       def repository_url

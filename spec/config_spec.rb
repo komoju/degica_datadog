@@ -49,7 +49,7 @@ RSpec.describe DegicaDatadog::Config do
         allow(ENV).to receive(:fetch).with("SERVICE_NAME", nil).and_return(service_name)
         allow(ENV).to receive(:fetch).with("PLATFORM", "").and_return("")
         allow(ENV).to receive(:fetch).with("_GIT_REVISION", "unknown").and_return(version)
-        allow(ENV).to receive(:fetch).with("RAILS_ENV", nil).and_return(environment)
+        allow(ENV).to receive(:fetch).with("O11Y_ENV", nil).and_return(environment)
       end
 
       it "sets service_name correctly" do
@@ -121,6 +121,32 @@ RSpec.describe DegicaDatadog::Config do
     it "is false when the env var flag is set" do
       allow(described_class).to receive(:disable_env_var_flag).and_return(true)
       expect(described_class.enabled?).to eq(false)
+    end
+  end
+
+  describe ".environment" do
+    before(:example) do
+      described_class.init
+    end
+
+    it "prefers O11Y_ENV over RAILS_ENV" do
+      allow(ENV).to receive(:fetch) { |key|
+        {
+          "RAILS_ENV" => "staging",
+          "O11Y_ENV" => "load-test"
+        }.fetch(key, nil)
+      }
+      expect(described_class.environment).to eq("load-test")
+    end
+
+    it "falls back to RAILS_ENV" do
+      allow(ENV).to receive(:fetch) { |key|
+        {
+          "RAILS_ENV" => "staging",
+          "O11Y_ENV" => nil
+        }.fetch(key, nil)
+      }
+      expect(described_class.environment).to eq("staging")
     end
   end
 
