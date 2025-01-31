@@ -6,7 +6,7 @@ Internal library for StatsD and tracing.
 
 1. Grab the gem from GitHub:
     ```ruby
-    gem 'degica_datadog', git: "https://github.com/degica/degica_datadog.git", branch: "main"
+    gem 'degica_datadog', git: "https://github.com/komoju/degica_datadog.git", branch: "main"
     ```
 1. Then add this to your `config/application.rb` to enable tracing:
     ```ruby
@@ -14,12 +14,16 @@ Internal library for StatsD and tracing.
 
     DegicaDatadog::Config.init(
       service_name: "hats",
-      version: "1.3", # optional
-      environment: "staging", # optional
-      repository_url: "github.com/degica/not-hats"
+      version: "abc123", # optional, ideally a git SHA
+      environment: "staging", # optional, see note below
+      repository_url: "github.com/komoju/my-service"
     )
     DegicaDatadog::Tracing.init
     ```
+
+The environment is sourced from `RAILS_ENV`, but can be overridden using the 
+`O11Y_ENV` environment variable, in cases where we want to distinguish specific
+environments (e.g. different staging environments).
 
 ### Custom Logging
 
