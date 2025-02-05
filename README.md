@@ -118,6 +118,8 @@ There are several steps to enable profiling, regardless of the environment:
 1. (Optionally) set the `DD_PROFILING_ALLOCATION_ENABLED=true` if you want to profile memory use.
 1. Instead of running your command directly, wrap it in `bundle exec ddprofrb exec`, for example `bundle exec ddprofrb exec bin/rails s -p 50130`.
 
+Additional environment variables can be set to capture more data, refer to [the DD docs](https://docs.datadoghq.com/profiler/enabling/ruby/?tab=environmentvariables#configuration) for details.
+
 ## Collecting data from local environments
 
 By default we do not collect data from local environments, but we can.
