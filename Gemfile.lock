@@ -10,10 +10,11 @@ GEM
   remote: https://rubygems.org/
   specs:
     ast (2.4.2)
-    datadog (2.9.0)
-      datadog-ruby_core_source (~> 3.3, >= 3.3.7)
+    datadog (2.10.0)
+      datadog-ruby_core_source (~> 3.4)
       libdatadog (~> 14.3.1.1.0)
       libddwaf (~> 1.18.0.0.0)
+      logger
       msgpack
     datadog-ci (1.12.0)
       datadog (~> 2.4)
@@ -28,7 +29,8 @@ GEM
     libdatadog (14.3.1.1.0)
     libddwaf (1.18.0.0.0)
       ffi (~> 1.0)
-    msgpack (1.7.5)
+    logger (1.6.5)
+    msgpack (1.8.0)
     parallel (1.26.3)
     parser (3.3.7.1)
       ast (~> 2.4.1)
