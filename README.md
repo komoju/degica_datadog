@@ -103,7 +103,7 @@ DegicaDatadog::Tracing.error!(e)
 
 ## Profiling
 
-We have support for detailed CPU and memory profiling, which can give us
+We have support for CPU and memory profiling, which can give us
 detailed insights into resources spent on every single method call. This is not
 free, both in terms of a small performance overhead, and in terms of money paid
 to Datadog, so we do not have this enabled by default.
@@ -115,7 +115,7 @@ leadership.
 There are several steps to enable profiling, regardless of the environment:
 
 1. Set the `DD_PROFILING_ENABLED=true` environment variable.
-1. (Optionally) set the `DD_PROFILING_ALLOCATION_ENABLED=true` if you want to profile memory use.
+1. (Optionally) set `DD_PROFILING_ALLOCATION_ENABLED=true` if you want to profile memory use.
 1. Instead of running your command directly, wrap it in `bundle exec ddprofrb exec`, for example `bundle exec ddprofrb exec bin/rails s -p 50130`.
 
 Additional environment variables can be set to capture more data, refer to [the DD docs](https://docs.datadoghq.com/profiler/enabling/ruby/?tab=environmentvariables#configuration) for details.
