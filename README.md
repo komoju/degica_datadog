@@ -66,7 +66,7 @@ end
 DegicaDatadog::Statsd.count("my_count", amount: 1, tags: tags)
 DegicaDatadog::Statsd.gauge("my_gauge", 4, tags: tags)
 DegicaDatadog::Statsd.distribution("my_distribution", 8, tags: tags)
-DegicaDatadog::Statsd.set("my_distribution", payment, tags: tags)
+DegicaDatadog::Statsd.set("my_set", payment, tags: tags)
 ```
 
 ## Tracing
