@@ -42,7 +42,7 @@ module DegicaDatadog
       end
 
       def repository_url
-        @repository_url ||= "github.com/degica/#{service}"
+        @repository_url ||= "github.com/komoju/#{service}"
       end
 
       # URI including http:// prefix & port for the tracing endpoint, or nil.

@@ -7,10 +7,10 @@ RSpec.describe DegicaDatadog::Config do
 
   describe ".init" do
     context "full initialisation" do
-      let(:service_name) { "degica" }
+      let(:service_name) { "komoju" }
       let(:version) { "1.0.0" }
       let(:environment) { "production" }
-      let(:repository_url) { "https://github.com/degica/degica_datadog" }
+      let(:repository_url) { "https://github.com/komoju/degica_datadog" }
 
       before do
         described_class.init(
@@ -65,7 +65,7 @@ RSpec.describe DegicaDatadog::Config do
       end
 
       it "sets repository_url correctly" do
-        expect(described_class.repository_url).to eq("github.com/degica/#{service_name}")
+        expect(described_class.repository_url).to eq("github.com/komoju/#{service_name}")
       end
     end
 
@@ -230,7 +230,7 @@ RSpec.describe DegicaDatadog::Config do
     it "returns a string representation of the config" do
       allow(described_class).to receive(:enabled?).and_return(true)
       allow(described_class).to receive(:statsd_client) { double("statsd_client") }
-      expect(described_class.inspect).to eq("DegicaDatadog::Config<enabled?=true service=unknown version=unknown environment=unknown repository_url=github.com/degica/unknown datadog_agent_host=localhost statsd_port=8125 tracing_port=8126>") # rubocop:disable Layout/LineLength
+      expect(described_class.inspect).to eq("DegicaDatadog::Config<enabled?=true service=unknown version=unknown environment=unknown repository_url=github.com/komoju/unknown datadog_agent_host=localhost statsd_port=8125 tracing_port=8126>") # rubocop:disable Layout/LineLength
     end
   end
 end
