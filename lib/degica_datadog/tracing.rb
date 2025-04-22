@@ -33,8 +33,8 @@ module DegicaDatadog
           c.tracing.contrib.global_default_service_name.enabled = true
 
           # Enabling additional settings for these instrumentations.
-          c.tracing.instrument :rails, request_queueing: true
-          c.tracing.instrument :rack, request_queueing: true
+          c.tracing.instrument :rails, request_queuing: true
+          c.tracing.instrument :rack, request_queuing: true
           c.tracing.instrument :sidekiq, distributed_tracing: true, quantize: { args: { show: :all } }
           c.tracing.instrument :mysql2, comment_propagation: "full"
           c.tracing.instrument :pg, comment_propagation: "full"
