@@ -45,6 +45,9 @@ module DegicaDatadog
           # Enable application security tracing.
           c.appsec.enabled = true
           c.appsec.instrument :rails
+
+          # Enable dynamic instrumentation.
+          c.dynamic_instrumentation.enabled = true
         end
 
         # This block is called before traces are sent to the agent, and allows
