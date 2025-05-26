@@ -11,13 +11,15 @@ RSpec.describe DegicaDatadog::Config do
       let(:version) { "1.0.0" }
       let(:environment) { "production" }
       let(:repository_url) { "https://github.com/komoju/degica_datadog" }
+      let(:aws_region) { "ap-northeast-1" }
 
       before do
         described_class.init(
           service_name: service_name,
           version: version,
           environment: environment,
-          repository_url: repository_url
+          repository_url: repository_url,
+          aws_region: aws_region
         )
       end
 
@@ -36,6 +38,10 @@ RSpec.describe DegicaDatadog::Config do
       it "sets repository_url correctly" do
         expect(described_class.repository_url).to eq(repository_url)
       end
+
+      it "sets aws_region correctly" do
+        expect(described_class.aws_region).to eq(aws_region)
+      end
     end
 
     context "fetches from env" do
@@ -50,6 +56,7 @@ RSpec.describe DegicaDatadog::Config do
         allow(ENV).to receive(:fetch).with("PLATFORM", "").and_return("")
         allow(ENV).to receive(:fetch).with("_GIT_REVISION", "unknown").and_return(version)
         allow(ENV).to receive(:fetch).with("O11Y_ENV", nil).and_return(environment)
+        allow(ENV).to receive(:fetch).with("AWS_REGION", nil).and_return("ap-northeast-1")
       end
 
       it "sets service_name correctly" do
@@ -226,11 +233,27 @@ RSpec.describe DegicaDatadog::Config do
     end
   end
 
+  describe ".aws_region" do
+    before(:example) do
+      described_class.init
+    end
+
+    it "returns the AWS region from environment variable" do
+      allow(ENV).to receive(:fetch).with("AWS_REGION", nil).and_return("ap-northeast-1")
+      expect(described_class.aws_region).to eq("ap-northeast-1")
+    end
+
+    it "returns nil when AWS_REGION is not set" do
+      allow(ENV).to receive(:fetch).with("AWS_REGION", nil).and_return(nil)
+      expect(described_class.aws_region).to be_nil
+    end
+  end
+
   describe ".inspect" do
     it "returns a string representation of the config" do
       allow(described_class).to receive(:enabled?).and_return(true)
       allow(described_class).to receive(:statsd_client) { double("statsd_client") }
-      expect(described_class.inspect).to eq("DegicaDatadog::Config<enabled?=true service=unknown version=unknown environment=unknown repository_url=github.com/komoju/unknown datadog_agent_host=localhost statsd_port=8125 tracing_port=8126>") # rubocop:disable Layout/LineLength
+      expect(described_class.inspect).to eq("DegicaDatadog::Config<enabled?=true service=unknown version=unknown environment=unknown repository_url=github.com/komoju/unknown datadog_agent_host=localhost statsd_port=8125 tracing_port=8126 aws_region=nil>") # rubocop:disable Layout/LineLength
     end
   end
 end

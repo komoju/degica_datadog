@@ -8,11 +8,12 @@ module DegicaDatadog
   # Configuration for the Datadog agent.
   module Config
     class << self
-      def init(service_name: nil, version: nil, environment: nil, repository_url: nil)
+      def init(service_name: nil, version: nil, environment: nil, repository_url: nil, aws_region: nil)
         @service = service_name
         @version = version
         @environment = environment
         @repository_url = repository_url
+        @aws_region = aws_region
       end
 
       def enabled?
@@ -71,8 +72,12 @@ module DegicaDatadog
         datadog_agent_uri&.port || 8126
       end
 
+      def aws_region
+        @aws_region ||= ENV.fetch("AWS_REGION", nil)
+      end
+
       def inspect
-        "DegicaDatadog::Config<enabled?=#{!!enabled?} service=#{service} version=#{version} environment=#{environment} repository_url=#{repository_url} datadog_agent_host=#{datadog_agent_host} statsd_port=#{statsd_port} tracing_port=#{tracing_port}>" # rubocop:disable Layout/LineLength
+        "DegicaDatadog::Config<enabled?=#{!!enabled?} service=#{service} version=#{version} environment=#{environment} aws_region=#{aws_region} repository_url=#{repository_url} datadog_agent_host=#{datadog_agent_host} statsd_port=#{statsd_port} tracing_port=#{tracing_port}>" # rubocop:disable Layout/LineLength
       end
 
       private

@@ -172,8 +172,9 @@ module DegicaDatadog
       def default_span_tags
         {
           "env" => Config.environment,
-          "version" => Config.version,
           "service" => Config.service,
+          "version" => Config.version,
+          "aws.region" => Config.aws_region,
           "git.commit.sha" => Config.version,
           "git.repository_url" => Config.repository_url,
           "component" => "degica_datadog",
