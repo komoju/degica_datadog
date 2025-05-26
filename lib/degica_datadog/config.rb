@@ -73,7 +73,7 @@ module DegicaDatadog
       end
 
       def aws_region
-        @aws_region ||= ENV.fetch("AWS_REGION", nil)
+        @aws_region ||= ENV.fetch("DD_AWS_REGION", nil)
       end
 
       def inspect

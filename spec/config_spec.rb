@@ -56,7 +56,7 @@ RSpec.describe DegicaDatadog::Config do
         allow(ENV).to receive(:fetch).with("PLATFORM", "").and_return("")
         allow(ENV).to receive(:fetch).with("_GIT_REVISION", "unknown").and_return(version)
         allow(ENV).to receive(:fetch).with("O11Y_ENV", nil).and_return(environment)
-        allow(ENV).to receive(:fetch).with("AWS_REGION", nil).and_return("ap-northeast-1")
+        allow(ENV).to receive(:fetch).with("DD_AWS_REGION", nil).and_return("ap-northeast-1")
       end
 
       it "sets service_name correctly" do
@@ -239,12 +239,12 @@ RSpec.describe DegicaDatadog::Config do
     end
 
     it "returns the AWS region from environment variable" do
-      allow(ENV).to receive(:fetch).with("AWS_REGION", nil).and_return("ap-northeast-1")
+      allow(ENV).to receive(:fetch).with("DD_AWS_REGION", nil).and_return("ap-northeast-1")
       expect(described_class.aws_region).to eq("ap-northeast-1")
     end
 
-    it "returns nil when AWS_REGION is not set" do
-      allow(ENV).to receive(:fetch).with("AWS_REGION", nil).and_return(nil)
+    it "returns nil when DD_AWS_REGION is not set" do
+      allow(ENV).to receive(:fetch).with("DD_AWS_REGION", nil).and_return(nil)
       expect(described_class.aws_region).to be_nil
     end
   end
