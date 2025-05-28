@@ -20,6 +20,7 @@ module DegicaDatadog
           c.tags = {
             "git.commit.sha" => Config.version,
             "git.repository_url" => Config.repository_url,
+            # The region below is not part of the source code linking logic.
             "aws.region" => Config.aws_region
           }
 
