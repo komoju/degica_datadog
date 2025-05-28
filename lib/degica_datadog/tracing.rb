@@ -19,7 +19,8 @@ module DegicaDatadog
           # These are for source code linking.
           c.tags = {
             "git.commit.sha" => Config.version,
-            "git.repository_url" => Config.repository_url
+            "git.repository_url" => Config.repository_url,
+            "aws.region" => Config.aws_region
           }
 
           c.agent.host = Config.datadog_agent_host
@@ -174,7 +175,6 @@ module DegicaDatadog
           "env" => Config.environment,
           "service" => Config.service,
           "version" => Config.version,
-          "aws.region" => Config.aws_region,
           "git.commit.sha" => Config.version,
           "git.repository_url" => Config.repository_url,
           "component" => "degica_datadog",
