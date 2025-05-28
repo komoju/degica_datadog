@@ -10,17 +10,18 @@ module DegicaDatadog
       def init(rake_tasks: [])
         return unless Config.enabled?
 
+        # These are for source code linking. We define them as env vars instead of tags because
+        # parts of the Datadog instrumentation also use these, and they don't know about the tags.
+        ENV['DD_GIT_COMMIT_SHA'] ||= Config.version
+        ENV['DD_GIT_REPOSITORY_URL'] ||= Config.repository_url
+
         require "datadog/auto_instrument"
 
         Datadog.configure do |c|
           c.service = Config.service
           c.env = Config.environment
           c.version = Config.version
-          # These are for source code linking.
           c.tags = {
-            "git.commit.sha" => Config.version,
-            "git.repository_url" => Config.repository_url,
-            # The region below is not part of the source code linking logic.
             "aws.region" => Config.aws_region
           }
 
@@ -173,11 +174,6 @@ module DegicaDatadog
       # Default span tags that get attached automatically.
       def default_span_tags
         {
-          "env" => Config.environment,
-          "service" => Config.service,
-          "version" => Config.version,
-          "git.commit.sha" => Config.version,
-          "git.repository_url" => Config.repository_url,
           "component" => "degica_datadog",
           "span.kind" => "internal",
           "operation" => "custom_span"
