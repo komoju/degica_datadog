@@ -12,8 +12,8 @@ module DegicaDatadog
 
         # These are for source code linking. We define them as env vars instead of tags because
         # parts of the Datadog instrumentation also use these, and they don't know about the tags.
-        ENV['DD_GIT_COMMIT_SHA'] ||= Config.version
-        ENV['DD_GIT_REPOSITORY_URL'] ||= Config.repository_url
+        ENV["DD_GIT_COMMIT_SHA"] ||= Config.version
+        ENV["DD_GIT_REPOSITORY_URL"] ||= Config.repository_url
 
         require "datadog/auto_instrument"
 

@@ -87,7 +87,7 @@ RSpec.describe DegicaDatadog::Tracing do
     end
 
     it "overrides the provided tags with default tags" do
-      options = { tags: { "env" => "test" } }
+      options = { tags: { "component" => "foobar" } }
       described_class.enrich_span_options!(options)
       expect(options[:tags]).to eq(DegicaDatadog::Tracing.default_span_tags)
     end
