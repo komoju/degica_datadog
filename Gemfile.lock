@@ -16,7 +16,7 @@ GEM
       libddwaf (~> 1.22.0.0.2)
       logger
       msgpack
-    datadog-ci (1.17.0)
+    datadog-ci (1.18.0)
       datadog (~> 2.4)
       drb
       msgpack
@@ -24,7 +24,7 @@ GEM
     diff-lcs (1.6.2)
     docile (1.4.1)
     dogstatsd-ruby (5.6.6)
-    drb (2.2.1)
+    drb (2.2.3)
     ffi (1.17.2)
     json (2.12.2)
     language_server-protocol (3.17.0.5)
