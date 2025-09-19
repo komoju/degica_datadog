@@ -42,6 +42,9 @@ module DegicaDatadog
           c.tracing.instrument :mysql2, comment_propagation: "full"
           c.tracing.instrument :pg, comment_propagation: "full"
 
+          # Disable ActiveRecord instrumentation, it duplicates SQL query spans.
+          c.tracing.instrument :active_record, enabled: false
+
           # If initialised with rake tasks, instrument those.
           c.tracing.instrument(:rake, tasks: rake_tasks) if rake_tasks
 
