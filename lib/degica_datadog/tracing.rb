@@ -17,7 +17,9 @@ module DegicaDatadog
 
         # Disable ActiveRecord instrumentation, it duplicates SQL query spans.
         # This is a bit cumbersome because of the instrumentation API.
-        ENV["DD_TRACE_ACTIVE_RECORD_ENABLED"] ||= "false"
+        # We keep instrumentation on for Postgres, as that has less useful spans for automatically
+        # prepared statements.
+        ENV["DD_TRACE_ACTIVE_RECORD_ENABLED"] ||= "false" unless defined?(PG)
 
         require "datadog/auto_instrument"
 
