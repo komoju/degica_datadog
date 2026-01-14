@@ -24,8 +24,9 @@ Gem::Specification.new do |spec|
   end
   spec.require_paths = ["lib"]
 
-  spec.add_dependency "datadog", "~> 2.0"
-  spec.add_dependency "datadog-ci", "~> 1.0"
+  spec.add_dependency "datadog", "~> 2"
+  spec.add_dependency "datadog_api_client", "~> 2"
+  spec.add_dependency "datadog-ci", "~> 1"
   spec.add_dependency "dogstatsd-ruby", "~> 5"
   spec.add_development_dependency "bundler", "~> 2.0"
   spec.add_development_dependency "rspec", "~> 3.0"

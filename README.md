@@ -56,18 +56,36 @@ This is because you might not want to instrument all rake tasks, though there sh
 This library exposes various different metric types. Please see the [Datadog Handbook](https://www.notion.so/The-Datadog-Handbook-b69e58b686f54bf795b36f97746a31ea) for details.
 
 ```ruby
-tags: {
-    "some_tag" => 42,
+tags = {
+  "some_tag" => 42,
 }
 
 DegicaDatadog::Statsd.with_timing("my_timing", tags: tags) do
-    do_a_thing
+  do_a_thing
 end
 DegicaDatadog::Statsd.count("my_count", amount: 1, tags: tags)
 DegicaDatadog::Statsd.gauge("my_gauge", 4, tags: tags)
 DegicaDatadog::Statsd.distribution("my_distribution", 8, tags: tags)
 DegicaDatadog::Statsd.set("my_set", payment, tags: tags)
 ```
+
+### Historical Metrics
+
+The StatsD client also supports sending historical metrics through the same 
+API by submitting a `Time` object as the `timestamp`. This enables 
+submitting a metric for a time prior to the current time.
+
+```ruby
+DegicaDatadog::Statsd.count("my_count", timestamp: 4.hours.ago)
+```
+
+Some caveats apply:
+- Historical metrics are only supported for counts and gauges.
+- To submit historical metrics, the `DD_API_KEY` environment variable must be 
+  set to a valid Datadog API key.
+- Additionally, historical metrics must be enabled in the
+  [metrics summary](https://app.datadoghq.com/metric/summary) for the metric in
+  question.
 
 ## Tracing
 
@@ -82,8 +100,8 @@ end
 # Optionally specify a resource and/or tags.
 resource = webhook.provider.name
 tags = {
-    "merchant.uuid" => merchant.uuid,
-    "merchant.name" => merchant.name,
+   "merchant.uuid" => merchant.uuid,
+   "merchant.name" => merchant.name,
 }
 DegicaDatadog::Tracing.span!("hats.send_webhook", resource: resource, tags: tags) do
   # Send a webhook.
