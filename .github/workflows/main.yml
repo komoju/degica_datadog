@@ -4,7 +4,7 @@ on: [push]
 
 jobs:
   rspec:
-    runs-on: [self-hosted, spot]
+    runs-on: [self-hosted, on-demand]
     name: Run rspec
     permissions: write-all
     strategy:
@@ -42,7 +42,7 @@ jobs:
       if: always()
       run: rm -rf ./* ./.??* || true; ls -al
   rubocop:
-    runs-on: [self-hosted, spot]
+    runs-on: [self-hosted, on-demand]
     name: Run rubocop
 
     steps:
