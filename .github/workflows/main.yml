@@ -4,7 +4,7 @@ on: [push]
 
 jobs:
   rspec:
-    runs-on: ubuntu-latest
+    runs-on: [self-hosted, spot]
     name: Run rspec
     permissions: write-all
     strategy:
@@ -38,8 +38,11 @@ jobs:
           show_missing: true
           link_missing_lines: true
 
+    - name: Clean Workspace Folder
+      if: always()
+      run: rm -rf ./* ./.??* || true; ls -al
   rubocop:
-    runs-on: ubuntu-latest
+    runs-on: [self-hosted, spot]
     name: Run rubocop
 
     steps:
@@ -54,3 +57,6 @@ jobs:
 
       - name: Run RuboCop
         run: bundle exec rubocop
+      - name: Clean Workspace Folder
+        if: always()
+        run: rm -rf ./* ./.??* || true; ls -al
